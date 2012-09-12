@@ -14,7 +14,7 @@ module KM
         hit('e', { '_p' => identifier,
                    '_n' => event_name,
                    '_t' => timestamp
-                 }.merge(properties))
+                 }.merge(properties || {}))
       end
 
       def set(identifier, properties, timestamp)
