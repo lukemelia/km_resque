@@ -22,5 +22,11 @@ describe "KM::Resque::RecordJob" do
       expected_api_hit = "http://trk.kissmetrics.com/e?_d=1&_k=abc123&_n=eventName&_p=identifier&_t=#{timestamp}"
       WebMock.should have_requested(:get, expected_api_hit)
     end
+    it "should raise an error when no identity is provided" do
+      timestamp = Time.now.to_i
+      lambda {
+        KM::Resque::RecordJob.perform(nil, "eventName", { :foo => 'bar', :baz => 'bay'}, timestamp)
+        }.should raise_error(KM::Resque::Error)
+    end
   end
 end

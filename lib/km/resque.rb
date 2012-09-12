@@ -6,6 +6,7 @@ require "km/resque/record_job"
 
 module KM
   class Resque
+    class Error < RuntimeError; end
     def self.configure(&block)
       yield configuration
     end
