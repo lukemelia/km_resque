@@ -2,6 +2,8 @@
 
 An interface for interacting with the KISSmetrics API via Resque. Keeps all direct interactions with the KISSMetrics API out of your requests.
 
+[![Build Status](https://secure.travis-ci.org/lukemelia/km-resque.png)](http://travis-ci.org/lukemelia/km-resque)
+
 ## Installation
 
 Add this line to your application's Gemfile:
