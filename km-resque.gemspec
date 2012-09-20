@@ -15,7 +15,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = KM::Resque::VERSION
 
-  gem.add_dependency 'km', '>= 1.1.2'
   gem.add_dependency 'resque', '>= 1.1.0'
   gem.add_development_dependency 'resque_spec'
   gem.add_development_dependency 'webmock'
