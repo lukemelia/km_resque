@@ -1,14 +1,14 @@
-# KM-Resque
+# KmResque
 
 An interface for interacting with the KISSmetrics API via Resque. Keeps all direct interactions with the KISSMetrics API out of your requests.
 
-[![Build Status](https://secure.travis-ci.org/lukemelia/km-resque.png)](http://travis-ci.org/lukemelia/km-resque)
+[![Build Status](https://secure.travis-ci.org/lukemelia/km_resque.png)](http://travis-ci.org/lukemelia/km_resque)
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'km-resque'
+    gem 'km_resque'
 
 And then execute:
 
@@ -16,19 +16,19 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install km-resque
+    $ gem install km_resque
 
 Configure your API key:
 
-    KM::Resque.configure do |config|
+    KmResque.configure do |config|
       config.key = '<YOUR-KISSMETRICS-API-KEY>'
     end
 
 ## Usage
 
-    KM::Resque.alias(anonymous_id, user.id)
-    KM::Resque.record(user.id, 'signed_up', { :source => 'contest' })
-    KM::Resque.set(user.id, { :gender => 'F' })
+    KmResque.alias(anonymous_id, user.id)
+    KmResque.record(user.id, 'signed_up', { :source => 'contest' })
+    KmResque.set(user.id, { :gender => 'F' })
 
 ## Running specs
 
@@ -48,4 +48,4 @@ Written by Luke Melia. Thanks to Yapp for open sourcing KMResque. Inspiration fr
 
 ## License
 
-km-resque is available under the terms of the MIT License http://www.opensource.org/licenses/mit-license.php
+km_resque is available under the terms of the MIT License http://www.opensource.org/licenses/mit-license.php
