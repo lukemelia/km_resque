@@ -44,7 +44,7 @@ Configure your API key:
 
 ## Credits
 
-Written by Luke Melia. Thanks to Yapp for open sourcing KMResque. Inspiration from delayed_kiss and km-delay.
+Written by Luke Melia. Thanks to Yapp for open sourcing KmResque. Inspiration from delayed_kiss and km-delay.
 
 ## License
 
