@@ -36,8 +36,6 @@ class KmResque
 
   private
 
-    SECONDS_IN_ONE_HUNDRED_YEARS = 60 * 60 * 24 * 365 * 100
-
     def hit(type, data)
       unless data['_p']
         raise Error.new("Can't hit the API without an identity")
@@ -50,9 +48,8 @@ class KmResque
 
       if data['_t']
         data['_d'] = 1
-        timestamp = data['_t'].to_i
-        if timestamp < 0 || timestamp > (Time.now.to_i + SECONDS_IN_ONE_HUNDRED_YEARS)
-          raise Error.new("Timestamp #{timestamp} is invalid")
+        unless validate_timestamp(data['_t'])
+          raise Error.new("Timestamp #{data['_t']} is invalid")
         end
       else
         data['_t'] = Time.now.to_i
@@ -70,6 +67,13 @@ class KmResque
       res = Net::HTTP::Proxy(proxy.host, proxy.port, proxy.user, proxy.password).start(host, port) do |http|
         http.get(query)
       end
+    end
+
+    SECONDS_IN_ONE_HUNDRED_YEARS = 60 * 60 * 24 * 365 * 100
+
+    def validate_timestamp(timestamp)
+      timestamp = timestamp.to_i
+      (timestamp > 0) && (timestamp < (Time.now.to_i + SECONDS_IN_ONE_HUNDRED_YEARS))
     end
   end
 end
