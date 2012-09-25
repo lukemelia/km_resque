@@ -36,6 +36,8 @@ class KmResque
 
   private
 
+    SECONDS_IN_ONE_HUNDRED_YEARS = 60 * 60 * 24 * 365 * 100
+
     def hit(type, data)
       unless data['_p']
         raise Error.new("Can't hit the API without an identity")
@@ -46,8 +48,15 @@ class KmResque
         raise Error.new("Can't hit the API without an API Key")
       end
 
-      data['_d'] = 1 if data['_t']
-      data['_t'] ||= Time.now.to_i
+      if data['_t']
+        data['_d'] = 1
+        timestamp = data['_t'].to_i
+        if timestamp < 0 || timestamp > (Time.now.to_i + SECONDS_IN_ONE_HUNDRED_YEARS)
+          raise Error.new("Timestamp #{timestamp} is invalid")
+        end
+      else
+        data['_t'] = Time.now.to_i
+      end
 
       unsafe = Regexp.new("[^#{URI::REGEXP::PATTERN::UNRESERVED}]", false, 'N')
 

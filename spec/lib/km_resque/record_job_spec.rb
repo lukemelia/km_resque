@@ -28,5 +28,11 @@ describe "KmResque::RecordJob" do
         KmResque::RecordJob.perform(nil, "eventName", { :foo => 'bar', :baz => 'bay'}, timestamp)
         }.should raise_error(KmResque::Error)
     end
+    it "should raise an error when an invalid timestamp is provided" do
+      timestamp = Time.now.to_i * 1000 # common mistake is providing milliseconds instead of seconds
+      lambda {
+        KmResque::RecordJob.perform("identifier", "eventName", { :foo => 'bar', :baz => 'bay'}, timestamp)
+        }.should raise_error(KmResque::Error)
+    end
   end
 end
