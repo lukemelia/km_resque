@@ -34,5 +34,13 @@ describe "KmResque::RecordJob" do
         KmResque::RecordJob.perform("identifier", "eventName", { :foo => 'bar', :baz => 'bay'}, timestamp)
         }.should raise_error(KmResque::Error)
     end
+    it "should round off any decimal in timestamp" do
+      now = Time.now
+      timestamp_float = now.to_f
+      timeStamp_int = now.to_i
+      KmResque::RecordJob.perform("identifier", "eventName", { :foo => 'bar', :baz => 'bay'}, timestamp_float)
+      expected_api_hit = "http://trk.kissmetrics.com/e?_d=1&_k=abc123&_n=eventName&_p=identifier&_t=#{timeStamp_int}&baz=bay&foo=bar"
+      WebMock.should have_requested(:get, expected_api_hit)
+    end
   end
 end
